@@ -1,0 +1,19 @@
+@model QOA.DEMO.Entidades.PolizaBE
+@{ ViewBag.Title = "Seguro vehicular"; }
+<div class="page-header"><h2>Emisión - Seguro Vehicular</h2></div>
+@if (ViewBag.Mensaje != null) { <div class="alert alert-danger">@ViewBag.Mensaje</div> }
+@using (Html.BeginForm("Vehicular", "Emision", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    <div class="panel panel-default"><div class="panel-heading"><strong>Datos del contratante</strong></div><div class="panel-body">
+        <div class="form-group"><label class="col-sm-2 control-label">DNI</label><div class="col-sm-4"><input name="contratante.numeroDocumento" class="form-control" maxlength="8" required /></div><label class="col-sm-2 control-label">Nombre completo</label><div class="col-sm-4"><input name="contratante.nombreCompleto" class="form-control" required /></div></div>
+        <div class="form-group"><label class="col-sm-2 control-label">Correo</label><div class="col-sm-4"><input name="contratante.correo" class="form-control" type="email" /></div><label class="col-sm-2 control-label">Teléfono</label><div class="col-sm-4"><input name="contratante.telefono" class="form-control" /></div></div>
+    </div></div>
+    <div class="panel panel-default"><div class="panel-heading"><strong>Datos del vehículo</strong></div><div class="panel-body">
+        <div class="form-group"><label class="col-sm-2 control-label">Placa</label><div class="col-sm-4"><input name="placa" class="form-control" maxlength="10" required /></div><label class="col-sm-2 control-label">Año</label><div class="col-sm-4"><input name="anioFabricacion" value="@Model.anioFabricacion" class="form-control" type="number" /></div></div>
+        <div class="form-group"><label class="col-sm-2 control-label">Marca</label><div class="col-sm-4"><input name="marca" class="form-control" required /></div><label class="col-sm-2 control-label">Modelo</label><div class="col-sm-4"><input name="modelo" class="form-control" required /></div></div>
+        <div class="form-group"><label class="col-sm-2 control-label">Motor</label><div class="col-sm-4"><input name="numeroMotor" class="form-control" /></div><label class="col-sm-2 control-label">Serie/VIN</label><div class="col-sm-4"><input name="numeroSerie" class="form-control" /></div></div>
+        <div class="form-group"><label class="col-sm-2 control-label">Valor comercial S/</label><div class="col-sm-4"><input name="valorComercial" value="@Model.valorComercial" class="form-control" type="number" step="0.01" /></div><label class="col-sm-2 control-label">Uso</label><div class="col-sm-4"><select name="usoVehiculo" class="form-control"><option>PARTICULAR</option><option>TAXI</option><option>COMERCIAL</option></select></div></div>
+        <div class="form-group"><label class="col-sm-2 control-label">Vigencia</label><div class="col-sm-2"><input name="fecIniVigencia" value="@Model.fecIniVigencia" class="form-control" type="date" /></div><div class="col-sm-2"><input name="fecFinVigencia" value="@Model.fecFinVigencia" class="form-control" type="date" /></div></div>
+    </div></div>
+    <div class="text-right"><a href="@Url.Action("Index", "Home")" class="btn btn-default">Cancelar</a> <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-ok"></span> Emitir póliza</button></div>
+}

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration><Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{776F7C2D-836C-453C-B707-DC2C224906C3}</ProjectGuid><OutputType>Library</OutputType><RootNamespace>QOA.DEMO.LogicaNegocio</RootNamespace><AssemblyName>QOA.DEMO.LogicaNegocio</AssemblyName><TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion><FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' "><DebugSymbols>true</DebugSymbols><DebugType>full</DebugType><Optimize>false</Optimize><OutputPath>bin\Debug\</OutputPath><DefineConstants>DEBUG;TRACE</DefineConstants></PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' "><DebugType>pdbonly</DebugType><Optimize>true</Optimize><OutputPath>bin\Release\</OutputPath><DefineConstants>TRACE</DefineConstants></PropertyGroup>
+  <ItemGroup><Reference Include="System" /></ItemGroup>
+  <ItemGroup><Compile Include="PolizaBL.cs" /><Compile Include="UsuarioBL.cs" /><Compile Include="Properties\AssemblyInfo.cs" /></ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QOA.DEMO.AccesoDatos\QOA.DEMO.AccesoDatos.csproj"><Project>{74F9243D-0997-4F85-B770-413E30272724}</Project><Name>QOA.DEMO.AccesoDatos</Name></ProjectReference>
+    <ProjectReference Include="..\QOA.DEMO.Entidades\QOA.DEMO.Entidades.csproj"><Project>{1B9E754B-56F8-4A13-9A16-6038D4B73D8F}</Project><Name>QOA.DEMO.Entidades</Name></ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

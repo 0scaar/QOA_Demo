@@ -1,0 +1,85 @@
+@model QOA.DEMO.Entidades.UsuarioBE
+@{ Layout = "~/Views/Shared/_LayoutLogin.cshtml"; }
+
+<main class="login-shell">
+    <span class="login-orb login-orb-one"></span>
+    <span class="login-orb login-orb-two"></span>
+
+    <div class="container login-contenedor">
+        <div class="row login-row">
+            <section class="col-md-6 login-presentacion">
+                <div class="login-marca">
+                    <div class="login-marca-icono"><span>Q</span></div>
+                    <div class="login-marca-texto"><strong>QOA</strong><small>SEGUROS</small></div>
+                </div>
+
+                <div class="login-linea"></div>
+                <p class="login-etiqueta">PLATAFORMA CORPORATIVA DE EMISIÓN</p>
+                <h1>Protección simple para cada momento importante.</h1>
+                <p class="login-descripcion">
+                    Gestiona la emisión y consulta de pólizas desde un solo lugar,
+                    con una experiencia pensada para nuestros equipos en Perú.
+                </p>
+
+                <div class="login-beneficios">
+                    <span><i class="glyphicon glyphicon-ok"></i> Emisión ágil</span>
+                    <span><i class="glyphicon glyphicon-ok"></i> Consulta centralizada</span>
+                    <span><i class="glyphicon glyphicon-ok"></i> Operación segura</span>
+                </div>
+
+                <div class="login-puntos" aria-hidden="true">
+                    <i></i><i></i><i></i><i></i><i></i><i></i>
+                    <i></i><i></i><i></i><i></i><i></i><i></i>
+                </div>
+            </section>
+
+            <section class="col-md-5 col-md-offset-1 login-formulario-columna">
+                <div class="login-panel">
+                    <div class="login-panel-encabezado">
+                        <span class="login-panel-icono glyphicon glyphicon-lock"></span>
+                        <p>PORTAL DE COLABORADORES</p>
+                        <h2>Bienvenido</h2>
+                        <span>Ingresa tus credenciales para continuar.</span>
+                    </div>
+
+                    @if (ViewBag.Mensaje != null)
+                    {
+                        <div class="alert alert-danger login-alerta"><span class="glyphicon glyphicon-exclamation-sign"></span> @ViewBag.Mensaje</div>
+                    }
+
+                    @using (Html.BeginForm("LoginUsuario", "Login", FormMethod.Post, new { @class = "login-form", autocomplete = "off" }))
+                    {
+                        <div class="form-group">
+                            <label for="usuario">Usuario</label>
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                @Html.TextBoxFor(x => x.usuario, new { @class = "form-control", placeholder = "Ingresa tu usuario", autocomplete = "off", autofocus = "autofocus" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="clave">Contraseña</label>
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                @Html.PasswordFor(x => x.clave, new { @class = "form-control", placeholder = "Ingresa tu contraseña", autocomplete = "off" })
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-lg btn-block login-boton">
+                            Ingresar al sistema <span class="glyphicon glyphicon-arrow-right"></span>
+                        </button>
+                    }
+
+                    <div class="login-demo">
+                        <span class="glyphicon glyphicon-info-sign"></span>
+                        <div><strong>Acceso para la demostración</strong><br />Usuario: <code>admin</code> &nbsp; Clave: <code>admin</code></div>
+                    </div>
+                </div>
+
+                <p class="login-soporte"><span class="glyphicon glyphicon-headphones"></span> ¿Necesitas ayuda? Contacta a Soporte TI</p>
+            </section>
+        </div>
+    </div>
+
+    <footer class="login-footer">QOA Seguros Perú &nbsp;·&nbsp; Ambiente de capacitación</footer>
+</main>

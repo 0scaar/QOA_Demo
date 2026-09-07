@@ -1,0 +1,11 @@
+@model List<QOA.DEMO.Entidades.PolizaBE>
+@{ ViewBag.Title = "Consulta de pólizas"; }
+<div class="page-header"><h2>Consulta de Pólizas</h2></div>
+<div class="panel panel-default"><div class="panel-body">
+    @using (Html.BeginForm("Index", "Poliza", FormMethod.Get, new { @class = "form-inline" })) { <div class="form-group"><label>Buscar&nbsp;</label><input name="filtroGeneral" value="@ViewBag.Filtro" class="form-control input-busqueda" placeholder="Póliza, DNI o contratante" /></div> <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-search"></span> Consultar</button> <a class="btn btn-default" href="@Url.Action("Index")">Limpiar</a> }
+</div></div>
+@if (TempData["Mensaje"] != null) { <div class="alert alert-info">@TempData["Mensaje"]</div> }
+<div class="panel panel-default"><div class="table-responsive"><table class="table table-striped table-bordered table-hover"><thead><tr><th>N° Póliza</th><th>Producto</th><th>Documento</th><th>Contratante</th><th>Emisión</th><th>Prima total</th><th>Estado</th><th>Acciones</th></tr></thead><tbody>
+@foreach (var p in Model) { <tr><td>@p.numPoliza</td><td>@p.descripcionProducto</td><td>@p.contratante.numeroDocumento</td><td>@p.contratante.nombreCompleto</td><td>@p.fecEmision</td><td class="text-right">S/ @p.primaTotal.ToString("N2")</td><td><span class="label @(p.estado == "EMITIDA" ? "label-success" : "label-danger")">@p.estado</span></td><td><a class="btn btn-xs btn-info" href="@Url.Action("Detalle", new { id = p.idPoliza })"><span class="glyphicon glyphicon-eye-open"></span> Detalle</a></td></tr> }
+@if (Model.Count == 0) { <tr><td colspan="8" class="text-center text-muted">No se encontraron pólizas</td></tr> }
+</tbody></table></div></div>

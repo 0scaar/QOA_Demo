@@ -1,0 +1,39 @@
+@{
+    var usuario = Session["nombreUsuario"] == null ? "" : Session["nombreUsuario"].ToString();
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewBag.Title - QOA Perú</title>
+    <link rel="icon" type="image/svg+xml" href="@Url.Action("Favicon", "Assets")" />
+    <link href="@Url.Action("BootstrapTheme", "Assets")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Action("BootstrapStyle", "Assets")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Action("Estilos", "Assets")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Action("JQuery", "Assets")"></script>
+    <script src="@Url.Action("BootstrapScript", "Assets")"></script>
+</head>
+<body>
+    @if (Session["idUsuario"] != null)
+    {
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header"><button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="@Url.Action("Index", "Home")">QOA Seguros</a></div>
+                <div class="collapse navbar-collapse" id="menu">
+                    <ul class="nav navbar-nav">
+                        <li><a href="@Url.Action("Index", "Home")"><span class="glyphicon glyphicon-home"></span> Inicio</a></li>
+                        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-file"></span> Emitir póliza <span class="caret"></span></a><ul class="dropdown-menu"><li><a href="@Url.Action("ProteccionTarjeta", "Emision")">Protección de tarjeta</a></li><li><a href="@Url.Action("Vehicular", "Emision")">Vehicular</a></li></ul></li>
+                        <li><a href="@Url.Action("Index", "Poliza")"><span class="glyphicon glyphicon-search"></span> Consultar pólizas</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right"><li><a href="#"><span class="glyphicon glyphicon-user"></span> @usuario</a></li><li><a href="@Url.Action("Salir", "Login")"><span class="glyphicon glyphicon-log-out"></span> Salir</a></li></ul>
+                </div>
+            </div>
+        </nav>
+    }
+    <div class="container-fluid contenido-principal">@RenderBody()</div>
+    <footer class="footer"><div class="container-fluid"><small>QOA Demo - Sistema de emisión de seguros Perú | Ambiente de capacitación</small></div></footer>
+    @RenderSection("scripts", required: false)
+</body>
+</html>
