@@ -21,7 +21,7 @@
     <Reference Include="System" /><Reference Include="System.ComponentModel.DataAnnotations" /><Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MensajeResultado.cs" /><Compile Include="PersonaBE.cs" /><Compile Include="PolizaBE.cs" /><Compile Include="UsuarioBE.cs" /><Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CompaniaBE.cs" /><Compile Include="CotizacionBE.cs" /><Compile Include="MensajeResultado.cs" /><Compile Include="OfertaCotizacionBE.cs" /><Compile Include="PersonaBE.cs" /><Compile Include="PolizaBE.cs" /><Compile Include="UsuarioBE.cs" /><Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

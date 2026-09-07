@@ -1,6 +1,7 @@
 @model List<QOA.DEMO.Entidades.PolizaBE>
 @{ ViewBag.Title = "Inicio"; }
 <div class="page-header"><h2>Panel de Emisión <small>Resumen operativo</small></h2></div>
+@if (TempData["Mensaje"] != null) { <div class="alert alert-info">@TempData["Mensaje"]</div> }
 <div class="row tarjetas-resumen">
     <div class="col-sm-3"><div class="panel panel-primary"><div class="panel-heading">Pólizas registradas</div><div class="panel-body numero">@ViewBag.Total</div></div></div>
     <div class="col-sm-3"><div class="panel panel-success"><div class="panel-heading">Pólizas emitidas</div><div class="panel-body numero">@ViewBag.Emitidas</div></div></div>
@@ -9,5 +10,5 @@
 </div>
 <div class="row">
     <div class="col-md-8"><div class="panel panel-default"><div class="panel-heading"><strong>Últimas emisiones</strong></div><div class="table-responsive"><table class="table table-striped table-hover"><thead><tr><th>Póliza</th><th>Producto</th><th>Contratante</th><th>Estado</th><th>Total</th></tr></thead><tbody>@foreach (var p in Model) { <tr><td><a href="@Url.Action("Detalle", "Poliza", new { id = p.idPoliza })">@p.numPoliza</a></td><td>@p.descripcionProducto</td><td>@p.contratante.nombreCompleto</td><td><span class="label @(p.estado == "EMITIDA" ? "label-success" : "label-danger")">@p.estado</span></td><td>S/ @p.primaTotal.ToString("N2")</td></tr> }</tbody></table></div></div></div>
-    <div class="col-md-4"><div class="panel panel-default"><div class="panel-heading"><strong>Accesos rápidos</strong></div><div class="list-group"><a class="list-group-item" href="@Url.Action("ProteccionTarjeta", "Emision")"><span class="glyphicon glyphicon-credit-card"></span> Emitir Protección de Tarjeta</a><a class="list-group-item" href="@Url.Action("Vehicular", "Emision")"><span class="glyphicon glyphicon-road"></span> Emitir Seguro Vehicular</a><a class="list-group-item" href="@Url.Action("Index", "Poliza")"><span class="glyphicon glyphicon-list-alt"></span> Bandeja de Pólizas</a></div></div></div>
+    <div class="col-md-4"><div class="panel panel-default"><div class="panel-heading"><strong>Accesos rápidos</strong></div><div class="list-group"><a class="list-group-item" href="@Url.Action("ProteccionTarjeta", "Emision")"><span class="glyphicon glyphicon-credit-card"></span> Cotizar Protección de Tarjeta</a><a class="list-group-item" href="@Url.Action("Vehicular", "Emision")"><span class="glyphicon glyphicon-road"></span> Cotizar Seguro Vehicular</a><a class="list-group-item" href="@Url.Action("Index", "Poliza")"><span class="glyphicon glyphicon-list-alt"></span> Bandeja de Pólizas</a></div></div></div>
 </div>

@@ -24,7 +24,7 @@ namespace QOA.DEMO.AccesoDatos
                     objParametro.idPoliza = id + 1;
                     objParametro.numPoliza = (objParametro.tipoProducto == "TARJETA" ? "PCT" : "VEH") + "-" + DateTime.Now.Year + "-" + objParametro.idPoliza.ToString("000000");
                     objParametro.fecEmision = DateTime.Now.ToString("dd/MM/yyyy"); objParametro.fechaRegistro = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"); objParametro.estado = "EMITIDA"; objParametro.activo = 1;
-                    objParametro.igv = objParametro.primaNeta * 0.18; objParametro.primaTotal = objParametro.primaNeta + objParametro.igv;
+                    if (objParametro.idOfertaCotizacion <= 0) { objParametro.igv = objParametro.primaNeta * 0.18; objParametro.primaTotal = objParametro.primaNeta + objParametro.igv; }
                     DatosDemo.polizas.Add(objParametro);
                     return new MensajeResultado { CODIGO = 0, MENSAJE = "Poliza emitida correctamente", ID = objParametro.idPoliza, EXITO = true, DATA = objParametro };
                 }
@@ -131,13 +131,21 @@ namespace QOA.DEMO.AccesoDatos
             cmd.Parameters.Add("@D_INI_VIGENCIA", SqlDbType.Date).Value = Convert.ToDateTime(p.fecIniVigencia); cmd.Parameters.Add("@D_FIN_VIGENCIA", SqlDbType.Date).Value = Convert.ToDateTime(p.fecFinVigencia); cmd.Parameters.Add("@N_PRIMA_NETA", SqlDbType.Decimal).Value = p.primaNeta;
             cmd.Parameters.Add("@C_BANCO", SqlDbType.VarChar, 100).Value = p.banco ?? ""; cmd.Parameters.Add("@C_TIPO_TARJETA", SqlDbType.VarChar, 50).Value = p.tipoTarjeta ?? ""; cmd.Parameters.Add("@C_ULTIMOS_DIGITOS", SqlDbType.Char, 4).Value = p.ultimosDigitosTarjeta ?? ""; cmd.Parameters.Add("@N_LINEA_CREDITO", SqlDbType.Decimal).Value = p.lineaCredito; cmd.Parameters.Add("@C_PLAN", SqlDbType.VarChar, 50).Value = p.planTarjeta ?? "";
             cmd.Parameters.Add("@C_PLACA", SqlDbType.VarChar, 10).Value = p.placa ?? ""; cmd.Parameters.Add("@C_MARCA", SqlDbType.VarChar, 50).Value = p.marca ?? ""; cmd.Parameters.Add("@C_MODELO", SqlDbType.VarChar, 50).Value = p.modelo ?? ""; cmd.Parameters.Add("@N_ANIO", SqlDbType.Int).Value = p.anioFabricacion; cmd.Parameters.Add("@C_NUM_MOTOR", SqlDbType.VarChar, 80).Value = p.numeroMotor ?? ""; cmd.Parameters.Add("@C_NUM_SERIE", SqlDbType.VarChar, 80).Value = p.numeroSerie ?? ""; cmd.Parameters.Add("@N_VALOR_COMERCIAL", SqlDbType.Decimal).Value = p.valorComercial; cmd.Parameters.Add("@C_USO", SqlDbType.VarChar, 30).Value = p.usoVehiculo ?? ""; cmd.Parameters.Add("@C_USUARIO", SqlDbType.VarChar, 50).Value = p.usuarioRegistro ?? "";
+            cmd.Parameters.Add("@N_ID_COTIZACION", SqlDbType.BigInt).Value = p.idCotizacion; cmd.Parameters.Add("@N_ID_OFERTA", SqlDbType.BigInt).Value = p.idOfertaCotizacion; cmd.Parameters.Add("@N_ID_COMPANIA", SqlDbType.Int).Value = p.idCompania; cmd.Parameters.Add("@C_NOMBRE_COMPANIA", SqlDbType.VarChar, 150).Value = p.nombreCompania ?? ""; cmd.Parameters.Add("@C_NUM_COTIZACION", SqlDbType.VarChar, 30).Value = p.numCotizacion ?? ""; cmd.Parameters.Add("@N_DEDUCIBLE", SqlDbType.Decimal).Value = p.deducible;
         }
 
         private PolizaBE Mapear(SqlDataReader dr)
         {
             PolizaBE p = new PolizaBE();
             p.idPoliza = Convert.ToInt64(dr["N_ID_POLIZA"]); p.numPoliza = Convert.ToString(dr["C_NUM_POLIZA"]); p.tipoProducto = Convert.ToString(dr["C_TIPO_PRODUCTO"]); p.descripcionProducto = p.tipoProducto == "TARJETA" ? "Proteccion de Tarjeta" : "Seguro Vehicular"; p.estado = Convert.ToString(dr["C_ESTADO"]); p.fecEmision = Convert.ToString(dr["D_FEC_EMISION"]); p.primaNeta = Convert.ToDouble(dr["N_PRIMA_NETA"]); p.primaTotal = Convert.ToDouble(dr["N_PRIMA_TOTAL"]); p.igv = p.primaTotal - p.primaNeta; p.contratante.numeroDocumento = Convert.ToString(dr["C_DOCUMENTO"]); p.contratante.nombreCompleto = Convert.ToString(dr["C_NOMBRE_COMPLETO"]);
+            if (ExisteColumna(dr, "N_ID_COTIZACION") && dr["N_ID_COTIZACION"] != DBNull.Value) p.idCotizacion = Convert.ToInt64(dr["N_ID_COTIZACION"]); if (ExisteColumna(dr, "N_ID_OFERTA") && dr["N_ID_OFERTA"] != DBNull.Value) p.idOfertaCotizacion = Convert.ToInt64(dr["N_ID_OFERTA"]); if (ExisteColumna(dr, "N_ID_COMPANIA") && dr["N_ID_COMPANIA"] != DBNull.Value) p.idCompania = Convert.ToInt32(dr["N_ID_COMPANIA"]); if (ExisteColumna(dr, "C_NOMBRE_COMPANIA")) p.nombreCompania = Convert.ToString(dr["C_NOMBRE_COMPANIA"]); if (ExisteColumna(dr, "C_NUM_COTIZACION")) p.numCotizacion = Convert.ToString(dr["C_NUM_COTIZACION"]); if (ExisteColumna(dr, "N_DEDUCIBLE") && dr["N_DEDUCIBLE"] != DBNull.Value) p.deducible = Convert.ToDouble(dr["N_DEDUCIBLE"]);
             return p;
+        }
+
+        private bool ExisteColumna(SqlDataReader dr, string columna)
+        {
+            for (int i = 0; i < dr.FieldCount; i++) if (dr.GetName(i).Equals(columna, StringComparison.OrdinalIgnoreCase)) return true;
+            return false;
         }
 
         public void Dispose() { Dispose(true); GC.SuppressFinalize(this); }

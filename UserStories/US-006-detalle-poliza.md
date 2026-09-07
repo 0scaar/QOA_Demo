@@ -19,7 +19,7 @@
 
 **Dado** que existe una póliza  
 **cuando** el usuario abre su detalle  
-**entonces** visualiza número, producto, contratante, documento, emisión, vigencia, prima neta, IGV, prima total y estado.
+**entonces** visualiza número, producto, compañía y cotización cuando existan, contratante, documento, emisión, vigencia, prima neta, IGV, prima total y estado.
 
 ### Escenario 2: detalle de tarjeta
 

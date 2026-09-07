@@ -23,8 +23,9 @@ La solución `QOA.DEMO.sln` mantiene cuatro capas:
 
 - Login básico (`admin` / `admin`).
 - Home con indicadores y últimas emisiones.
-- Emisión de Protección de Tarjeta.
-- Emisión de Seguro Vehicular.
+- Cotización de Protección de Tarjeta con cuatro compañías simuladas.
+- Cotización de Seguro Vehicular con comparación de precio, deducible y beneficios.
+- Selección de una oferta y emisión posterior de la póliza.
 - Consulta de pólizas por número, DNI o contratante.
 - Detalle de póliza.
 - Anulación de póliza.

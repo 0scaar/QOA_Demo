@@ -1,6 +1,6 @@
 @model QOA.DEMO.Entidades.PolizaBE
 @{ ViewBag.Title = "Protección de tarjeta"; }
-<div class="page-header"><h2>Emisión - Protección de Tarjeta</h2></div>
+<div class="page-header"><h2>Cotización - Protección de Tarjeta</h2><p class="text-muted">Completa los datos para comparar precios entre varias compañías.</p></div>
 @if (ViewBag.Mensaje != null) { <div class="alert alert-danger">@ViewBag.Mensaje</div> }
 @using (Html.BeginForm("ProteccionTarjeta", "Emision", FormMethod.Post, new { @class = "form-horizontal" }))
 {
@@ -13,5 +13,5 @@
         <div class="form-group"><label class="col-sm-2 control-label">Últimos 4 dígitos</label><div class="col-sm-4"><input name="ultimosDigitosTarjeta" class="form-control" maxlength="4" required /></div><label class="col-sm-2 control-label">Línea de crédito</label><div class="col-sm-4"><input name="lineaCredito" value="@Model.lineaCredito" class="form-control" type="number" step="0.01" /></div></div>
         <div class="form-group"><label class="col-sm-2 control-label">Plan</label><div class="col-sm-4"><select name="planTarjeta" class="form-control"><option>PLAN 1</option><option selected>PLAN 2</option><option>PLAN 3</option></select></div><label class="col-sm-2 control-label">Vigencia</label><div class="col-sm-2"><input name="fecIniVigencia" value="@Model.fecIniVigencia" class="form-control" type="date" /></div><div class="col-sm-2"><input name="fecFinVigencia" value="@Model.fecFinVigencia" class="form-control" type="date" /></div></div>
     </div></div>
-    <div class="text-right"><a href="@Url.Action("Index", "Home")" class="btn btn-default">Cancelar</a> <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-ok"></span> Emitir póliza</button></div>
+    <div class="text-right"><a href="@Url.Action("Index", "Home")" class="btn btn-default">Cancelar</a> <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-transfer"></span> Cotizar en compañías</button></div>
 }

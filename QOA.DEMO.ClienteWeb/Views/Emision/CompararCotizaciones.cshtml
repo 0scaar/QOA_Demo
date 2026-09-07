@@ -1,0 +1,52 @@
+@model QOA.DEMO.Entidades.CotizacionBE
+@{ ViewBag.Title = "Comparar cotizaciones"; }
+<div class="page-header cotizacion-titulo">
+    <h2>Compara y elige una cotización <small>@Model.numCotizacion</small></h2>
+    <p class="text-muted">Selecciona una compañía para recién emitir la póliza.</p>
+</div>
+@if (ViewBag.Mensaje != null) { <div class="alert alert-danger">@ViewBag.Mensaje</div> }
+<div class="alert alert-info cotizacion-resumen">
+    <div class="row">
+        <div class="col-sm-3"><small>PRODUCTO</small><strong>@(Model.tipoProducto == "TARJETA" ? "Protección de tarjeta" : "Seguro vehicular")</strong></div>
+        <div class="col-sm-3"><small>CONTRATANTE</small><strong>@Model.poliza.contratante.nombreCompleto</strong></div>
+        <div class="col-sm-3"><small>DOCUMENTO</small><strong>@Model.poliza.contratante.numeroDocumento</strong></div>
+        <div class="col-sm-3"><small>RIESGO</small><strong>@(Model.tipoProducto == "TARJETA" ? Model.poliza.banco + " - " + Model.poliza.planTarjeta : Model.poliza.placa + " - " + Model.poliza.marca + " " + Model.poliza.modelo)</strong></div>
+    </div>
+</div>
+<div class="row ofertas-fila">
+@foreach (var oferta in Model.ofertas)
+{
+    <div class="col-lg-3 col-sm-6">
+        <div class="panel panel-default oferta-panel @(oferta.recomendada ? "oferta-recomendada" : "")">
+            @if (oferta.recomendada) { <div class="oferta-insignia"><span class="glyphicon glyphicon-star"></span> Mejor precio</div> }
+            <div class="panel-heading oferta-compania" style="border-top-color:@oferta.compania.color">
+                <span class="oferta-logo" style="background:@oferta.compania.color" aria-hidden="true">@(oferta.compania.codigo == "RIMAC" ? "RS" : oferta.compania.codigo == "PACIFICO" ? "PS" : oferta.compania.codigo == "MAPFRE" ? "MP" : "LP")</span>
+                <div class="oferta-compania-datos">
+                    <span class="oferta-compania-tipo">Compañía aseguradora</span>
+                    <h3 class="oferta-compania-nombre">@oferta.compania.nombre</h3>
+                    <small>@oferta.compania.descripcion</small>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="oferta-precio"><small>Prima total anual</small><span>S/ @oferta.primaTotal.ToString("N2")</span><em>Incluye IGV</em></div>
+                <dl class="oferta-detalle">
+                    <dt>Prima neta</dt><dd>S/ @oferta.primaNeta.ToString("N2")</dd>
+                    <dt>IGV</dt><dd>S/ @oferta.igv.ToString("N2")</dd>
+                    <dt>Deducible</dt><dd>@oferta.descripcionDeducible</dd>
+                    <dt>Respuesta</dt><dd>@oferta.tiempoRespuesta</dd>
+                </dl>
+                <div class="oferta-beneficios"><strong>Coberturas y beneficios</strong><ul>@foreach (string beneficio in oferta.beneficios.Split('|')) { <li><span class="glyphicon glyphicon-ok"></span> @beneficio.Trim()</li> }</ul></div>
+                @using (Html.BeginForm("EmitirCotizacion", "Emision", FormMethod.Post))
+                {
+                    <input type="hidden" name="idOferta" value="@oferta.idOferta" />
+                    <button type="submit" class="btn @(oferta.recomendada ? "btn-success" : "btn-primary") btn-block oferta-boton">Elegir y emitir póliza</button>
+                }
+            </div>
+        </div>
+    </div>
+}
+</div>
+<div class="cotizacion-pie">
+    <a class="btn btn-default" href="@(Model.tipoProducto == "TARJETA" ? Url.Action("ProteccionTarjeta") : Url.Action("Vehicular"))"><span class="glyphicon glyphicon-chevron-left"></span> Volver y modificar datos</a>
+    <span class="text-muted"><span class="glyphicon glyphicon-info-sign"></span> Tarifas generadas con compañías simuladas para fines de capacitación.</span>
+</div>

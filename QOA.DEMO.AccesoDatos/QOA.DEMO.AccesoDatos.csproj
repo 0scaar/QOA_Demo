@@ -7,7 +7,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' "><DebugSymbols>true</DebugSymbols><DebugType>full</DebugType><Optimize>false</Optimize><OutputPath>bin\Debug\</OutputPath><DefineConstants>DEBUG;TRACE</DefineConstants></PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' "><DebugType>pdbonly</DebugType><Optimize>true</Optimize><OutputPath>bin\Release\</OutputPath><DefineConstants>TRACE</DefineConstants></PropertyGroup>
   <ItemGroup><Reference Include="System" /><Reference Include="System.Configuration" /><Reference Include="System.Core" /><Reference Include="System.Data" /></ItemGroup>
-  <ItemGroup><Compile Include="ConexionDL.cs" /><Compile Include="DatosDemo.cs" /><Compile Include="PolizaDL.cs" /><Compile Include="UsuarioDL.cs" /><Compile Include="Properties\AssemblyInfo.cs" /></ItemGroup>
+  <ItemGroup><Compile Include="ConexionDL.cs" /><Compile Include="CotizacionDL.cs" /><Compile Include="DatosDemo.cs" /><Compile Include="PolizaDL.cs" /><Compile Include="UsuarioDL.cs" /><Compile Include="Properties\AssemblyInfo.cs" /></ItemGroup>
   <ItemGroup><ProjectReference Include="..\QOA.DEMO.Entidades\QOA.DEMO.Entidades.csproj"><Project>{1B9E754B-56F8-4A13-9A16-6038D4B73D8F}</Project><Name>QOA.DEMO.Entidades</Name></ProjectReference></ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

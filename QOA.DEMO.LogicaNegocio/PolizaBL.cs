@@ -16,8 +16,8 @@ namespace QOA.DEMO.LogicaNegocio
         {
             try
             {
-                // Reglas de productos mezcladas, constantes magicas y calculos duplicados.
-                if (objParametro.tipoProducto == "TARJETA")
+                // Si existe una oferta se respeta su precio; el flujo antiguo sigue recalculando todo.
+                if (objParametro.idOfertaCotizacion <= 0 && objParametro.tipoProducto == "TARJETA")
                 {
                     if (objParametro.planTarjeta == "PLAN 1") objParametro.primaNeta = 29.90;
                     else if (objParametro.planTarjeta == "PLAN 2") objParametro.primaNeta = 49.90;
@@ -25,15 +25,24 @@ namespace QOA.DEMO.LogicaNegocio
                     objParametro.descripcionProducto = "Proteccion de Tarjeta";
                     objParametro.coberturas.Add("Compras no reconocidas"); objParametro.coberturas.Add("Robo en cajero");
                 }
-                else
+                else if (objParametro.idOfertaCotizacion <= 0)
                 {
                     objParametro.primaNeta = objParametro.valorComercial * 0.028;
                     if (objParametro.usoVehiculo == "TAXI") objParametro.primaNeta = objParametro.primaNeta * 1.45;
                     objParametro.descripcionProducto = "Seguro Vehicular";
                     objParametro.coberturas.Add("Danos propios"); objParametro.coberturas.Add("Responsabilidad civil");
                 }
-                objParametro.igv = objParametro.primaNeta * 0.18;
-                objParametro.primaTotal = objParametro.primaNeta + objParametro.igv;
+                else
+                {
+                    objParametro.descripcionProducto = objParametro.tipoProducto == "TARJETA" ? "Proteccion de Tarjeta" : "Seguro Vehicular";
+                    objParametro.coberturas.Add(objParametro.tipoProducto == "TARJETA" ? "Compras no reconocidas" : "Danos propios");
+                    objParametro.coberturas.Add(objParametro.tipoProducto == "TARJETA" ? "Robo en cajero" : "Responsabilidad civil");
+                }
+                if (objParametro.idOfertaCotizacion <= 0)
+                {
+                    objParametro.igv = objParametro.primaNeta * 0.18;
+                    objParametro.primaTotal = objParametro.primaNeta + objParametro.igv;
+                }
                 return new PolizaDL().registrarPoliza(objParametro);
             }
             catch (Exception ex) { throw ex; }

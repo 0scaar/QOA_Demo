@@ -32,6 +32,14 @@ namespace QOA.DEMO.Entidades
         public String fechaAnulacion { get; set; }
         public string motivoAnulacion { get; set; }
 
+        // Datos de cotizacion mezclados intencionalmente con la entidad de poliza.
+        public long idCotizacion { get; set; }
+        public long idOfertaCotizacion { get; set; }
+        public int idCompania { get; set; }
+        public string numCotizacion { get; set; }
+        public string nombreCompania { get; set; }
+        public Double deducible { get; set; }
+
         // Proteccion de tarjeta.
         public string banco { get; set; }
         public string tipoTarjeta { get; set; }

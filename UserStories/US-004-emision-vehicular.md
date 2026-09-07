@@ -10,8 +10,8 @@
 
 - Prioridad: Alta.
 - Actor: Usuario emisor.
-- Incluye: contratante, placa, marca, modelo, año, motor, VIN, valor comercial, uso, vigencia y cálculo de prima.
-- No incluye: inspección, tarifario por zona, deducibles, conductor, fotografías ni emisión con una aseguradora externa.
+- Incluye: contratante, placa, marca, modelo, año, motor, VIN, valor comercial, uso, vigencia y envío a cotización multicompañía.
+- No incluye: inspección, tarifario por zona, conductor, fotografías ni integración con una aseguradora externa real.
 
 ## Reglas actuales
 
@@ -26,19 +26,19 @@
 ### Escenario 1: apertura del formulario
 
 **Dado** que el usuario inició sesión  
-**cuando** selecciona **Emitir póliza > Vehicular**  
+**cuando** selecciona **Cotizar y emitir > Vehicular**
 **entonces** visualiza el formulario con año actual, valor comercial inicial de S/ 60,000, uso particular y vigencia anual.
 
-### Escenario 2: emisión particular
+### Escenario 2: cotización particular
 
 **Dado** que el usuario completa contratante y vehículo con uso `PARTICULAR`  
-**cuando** confirma la emisión  
-**entonces** la prima neta equivale al 2.8% del valor comercial, se agrega IGV y la póliza queda `EMITIDA`.
+**cuando** solicita la cotización
+**entonces** se usa como base el 2.8% del valor comercial y se muestran ofertas con factores distintos.
 
 ### Escenario 3: emisión de taxi
 
 **Dado** que el usuario selecciona uso `TAXI`  
-**cuando** confirma la emisión  
+**cuando** solicita la cotización
 **entonces** el sistema aplica el multiplicador 1.45 sobre la prima base antes de calcular el IGV.
 
 ### Escenario 4: detalle del riesgo
@@ -67,6 +67,8 @@
 - `QOA.DEMO.Entidades/PolizaBE.cs`
 - `QOA.DEMO.LogicaNegocio/PolizaBL.cs`
 - `QOA.DEMO.AccesoDatos/PolizaDL.cs`
+- `QOA.DEMO.LogicaNegocio/CotizacionBL.cs`
+- `QOA.DEMO.AccesoDatos/CotizacionDL.cs`
 - Procedimiento `SPI_POLIZA_EMITIR` y función `FN_CALCULAR_PRIMA_MALA`.
 
 ## Deuda técnica intencional observable

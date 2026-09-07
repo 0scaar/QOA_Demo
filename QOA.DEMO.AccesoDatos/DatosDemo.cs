@@ -9,6 +9,7 @@ namespace QOA.DEMO.AccesoDatos
     {
         public static List<UsuarioBE> usuarios = new List<UsuarioBE>();
         public static List<PolizaBE> polizas = new List<PolizaBE>();
+        public static List<CotizacionBE> cotizaciones = new List<CotizacionBE>();
 
         static DatosDemo()
         {

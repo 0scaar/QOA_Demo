@@ -8,11 +8,13 @@ Este directorio documenta la línea base funcional del sistema legado creado par
 |---|---|---|---|---|
 | US-001 | [Iniciar y cerrar sesión](US-001-login.md) | Usuario emisor | Alta | Implementada |
 | US-002 | [Visualizar el panel de inicio](US-002-home.md) | Usuario emisor | Media | Implementada |
-| US-003 | [Emitir Protección de Tarjeta](US-003-emision-proteccion-tarjeta.md) | Usuario emisor | Alta | Implementada |
-| US-004 | [Emitir Seguro Vehicular](US-004-emision-vehicular.md) | Usuario emisor | Alta | Implementada |
+| US-003 | [Capturar Protección de Tarjeta](US-003-emision-proteccion-tarjeta.md) | Usuario emisor | Alta | Implementada |
+| US-004 | [Capturar Seguro Vehicular](US-004-emision-vehicular.md) | Usuario emisor | Alta | Implementada |
 | US-005 | [Consultar pólizas emitidas](US-005-consulta-polizas.md) | Usuario emisor | Alta | Implementada |
 | US-006 | [Consultar el detalle de una póliza](US-006-detalle-poliza.md) | Usuario emisor | Alta | Implementada |
 | US-007 | [Anular una póliza](US-007-anulacion-poliza.md) | Usuario emisor | Alta | Implementada |
+| US-008 | [Cotizar en múltiples compañías](US-008-cotizacion-multicompania.md) | Usuario emisor | Alta | Implementada |
+| US-009 | [Seleccionar oferta y emitir](US-009-seleccionar-oferta-y-emitir.md) | Usuario emisor | Alta | Implementada |
 
 ## Convenciones
 

@@ -57,6 +57,7 @@
 
 - Número de póliza.
 - Producto.
+- Compañía seleccionada o indicación de emisión directa.
 - Documento y nombre del contratante.
 - Fecha de emisión.
 - Prima total.

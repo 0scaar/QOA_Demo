@@ -10,7 +10,7 @@
 
 - Prioridad: Alta.
 - Actor: Usuario emisor.
-- Incluye: contratante, tarjeta, banco, línea de crédito, plan, vigencia, cálculo de prima y creación de póliza.
+- Incluye: contratante, tarjeta, banco, línea de crédito, plan, vigencia y envío a cotización multicompañía.
 - No incluye: pago, firma, documentos, validación con el banco ni envío de certificado.
 
 ## Reglas actuales
@@ -31,14 +31,14 @@
 ### Escenario 1: apertura del formulario
 
 **Dado** que el usuario inició sesión  
-**cuando** selecciona **Emitir póliza > Protección de tarjeta**  
+**cuando** selecciona **Cotizar y emitir > Protección de tarjeta**
 **entonces** visualiza el formulario con PLAN 2, línea de crédito S/ 10,000 y vigencia anual como valores iniciales.
 
-### Escenario 2: emisión
+### Escenario 2: solicitud de cotización
 
 **Dado** que el usuario completa DNI, nombre, datos de tarjeta, plan y vigencia  
-**cuando** confirma la emisión  
-**entonces** el sistema calcula prima e IGV, genera el número, registra la póliza como `EMITIDA` y abre su detalle.
+**cuando** selecciona **Cotizar en compañías**
+**entonces** el sistema genera ofertas y abre la comparación; la emisión ocurre únicamente después de elegir una.
 
 ### Escenario 3: información del detalle
 
@@ -70,6 +70,8 @@
 - `QOA.DEMO.Entidades/PolizaBE.cs`
 - `QOA.DEMO.LogicaNegocio/PolizaBL.cs`
 - `QOA.DEMO.AccesoDatos/PolizaDL.cs`
+- `QOA.DEMO.LogicaNegocio/CotizacionBL.cs`
+- `QOA.DEMO.AccesoDatos/CotizacionDL.cs`
 - Procedimiento `SPI_POLIZA_EMITIR` y función `FN_CALCULAR_PRIMA_MALA`.
 
 ## Deuda técnica intencional observable

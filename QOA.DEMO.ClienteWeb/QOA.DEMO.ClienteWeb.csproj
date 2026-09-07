@@ -90,6 +90,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Emision\ProteccionTarjeta.cshtml" />
+    <Content Include="Views\Emision\CompararCotizaciones.cshtml" />
     <Content Include="Views\Emision\Vehicular.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Login\Ingresar.cshtml" />
