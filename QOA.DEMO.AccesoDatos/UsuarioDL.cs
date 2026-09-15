@@ -44,7 +44,7 @@ namespace QOA.DEMO.AccesoDatos
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
         }
     }

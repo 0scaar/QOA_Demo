@@ -89,7 +89,7 @@ namespace QOA.DEMO.AccesoDatos
                 }
                 return resultado;
             }
-            catch (Exception ex) { throw ex; }
+            catch (Exception ex) { throw; }
         }
 
         public CotizacionBE consultarCotizacion(long idCotizacion)
@@ -107,7 +107,7 @@ namespace QOA.DEMO.AccesoDatos
                 }
                 return null;
             }
-            catch (Exception ex) { throw ex; }
+            catch (Exception ex) { throw; }
         }
 
         public MensajeResultado seleccionarOferta(long idCotizacion, long idOferta, string usuario)
@@ -139,7 +139,7 @@ namespace QOA.DEMO.AccesoDatos
                 }
                 return new MensajeResultado { CODIGO = 0, MENSAJE = "Oferta seleccionada", ID = idOferta, EXITO = true };
             }
-            catch (Exception ex) { throw ex; }
+            catch (Exception ex) { throw; }
         }
 
         private List<CompaniaBE> ObtenerCompaniasEnMemoria()

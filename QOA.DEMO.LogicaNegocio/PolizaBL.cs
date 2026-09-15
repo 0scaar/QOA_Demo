@@ -45,25 +45,25 @@ namespace QOA.DEMO.LogicaNegocio
                 }
                 return new PolizaDL().registrarPoliza(objParametro);
             }
-            catch (Exception ex) { throw ex; }
+            catch (Exception ex) { throw; }
         }
 
         public List<PolizaBE> consultarPolizas(PolizaBE objParametro)
         {
             try { return new PolizaDL().consultarPolizas(objParametro); }
-            catch (Exception ex) { throw ex; }
+            catch (Exception ex) { throw; }
         }
 
         public PolizaBE consultarDetalle(long idPoliza)
         {
             try { return new PolizaDL().consultarDetalle(idPoliza); }
-            catch (Exception ex) { throw ex; }
+            catch (Exception ex) { throw; }
         }
 
         public MensajeResultado anularPoliza(long idPoliza, string motivo, string usuario)
         {
             try { return new PolizaDL().anularPoliza(idPoliza, motivo, usuario); }
-            catch (Exception ex) { throw ex; }
+            catch (Exception ex) { throw; }
         }
 
         public void Dispose() { Dispose(true); GC.SuppressFinalize(this); }

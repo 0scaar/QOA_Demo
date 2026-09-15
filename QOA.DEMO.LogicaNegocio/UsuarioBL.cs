@@ -20,7 +20,7 @@ namespace QOA.DEMO.LogicaNegocio
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
         }
 

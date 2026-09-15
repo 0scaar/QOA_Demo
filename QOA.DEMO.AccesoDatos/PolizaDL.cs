@@ -40,7 +40,7 @@ namespace QOA.DEMO.AccesoDatos
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -73,7 +73,7 @@ namespace QOA.DEMO.AccesoDatos
                 }
                 return lista;
             }
-            catch (Exception ex) { throw ex; }
+            catch (Exception ex) { throw; }
         }
 
         public PolizaBE consultarDetalle(long idPoliza)
@@ -100,7 +100,7 @@ namespace QOA.DEMO.AccesoDatos
                     return p;
                 }
             }
-            catch (Exception ex) { throw ex; }
+            catch (Exception ex) { throw; }
         }
 
         public MensajeResultado anularPoliza(long idPoliza, string motivo, string usuario)
@@ -122,7 +122,7 @@ namespace QOA.DEMO.AccesoDatos
                     conex.Open(); cmd.ExecuteNonQuery(); return new MensajeResultado { CODIGO = 0, MENSAJE = "Poliza anulada", ID = idPoliza, EXITO = true };
                 }
             }
-            catch (Exception ex) { throw ex; }
+            catch (Exception ex) { throw; }
         }
 
         private void AgregarParametrosPoliza(SqlCommand cmd, PolizaBE p)

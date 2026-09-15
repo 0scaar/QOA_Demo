@@ -20,7 +20,7 @@ namespace QOA.DEMO.LogicaNegocio
                 if (objParametro.tipoProducto == "VEHICULAR" && objParametro.valorComercial <= 0) throw new Exception("El valor comercial debe ser mayor a cero");
                 return new CotizacionDL().cotizar(objParametro);
             }
-            catch (Exception ex) { throw ex; }
+            catch (Exception ex) { throw; }
         }
 
         public MensajeResultado emitirCotizacion(CotizacionBE cotizacion, long idOferta, string usuario)
@@ -49,7 +49,7 @@ namespace QOA.DEMO.LogicaNegocio
                 cotizacion.poliza.usuarioRegistro = usuario;
                 return new PolizaBL().registrarPoliza(cotizacion.poliza);
             }
-            catch (Exception ex) { throw ex; }
+            catch (Exception ex) { throw; }
         }
 
         public void Dispose() { Dispose(true); GC.SuppressFinalize(this); }
