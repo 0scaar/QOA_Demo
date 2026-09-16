@@ -197,7 +197,8 @@ INSERT dbo.MAE_COMPANIA(C_CODIGO,C_NOMBRE,C_RUC,C_COLOR,C_DESCRIPCION,N_FACTOR_T
 ('RIMAC','Rímac Seguros','20100041953','#e2231a','Cobertura amplia',1.0800),
 ('PACIFICO','Pacífico Seguros','20332970411','#0067b1','Asistencia nacional',1.0000),
 ('MAPFRE','MAPFRE Perú','20202380621','#d71920','Red de talleres',0.9400),
-('POSITIVA','La Positiva','20100210909','#f59b23','Precio competitivo',0.8800);
+('POSITIVA','La Positiva','20100210909','#f59b23','Precio competitivo',0.8800),
+('ANDINA','Seguros Andina','20555555555','#2E7D32','Cobertura para flotas',0.9700);
 INSERT dbo.POL_COBERTURA(C_TIPO_PRODUCTO,C_NOMBRE) VALUES
 ('TARJETA','Compras no reconocidas'),('TARJETA','Robo en cajero'),('TARJETA','Fraude por internet'),
 ('VEHICULAR','Danos propios'),('VEHICULAR','Responsabilidad civil'),('VEHICULAR','Robo total');

@@ -46,7 +46,7 @@ namespace QOA.DEMO.AccesoDatos
                         oferta.compania = compania;
                         oferta.orden = orden;
                         double baseProducto = CalcularBaseProducto(objParametro);
-                        double factor = compania.idCompania == 1 ? 1.08 : compania.idCompania == 2 ? 1.00 : compania.idCompania == 3 ? 0.94 : 0.88;
+                        double factor = ObtenerFactorTarifa(compania.idCompania);
                         oferta.primaNeta = Math.Round(baseProducto * factor, 2);
                         oferta.igv = Math.Round(oferta.primaNeta * 0.18, 2);
                         oferta.primaTotal = Math.Round(oferta.primaNeta + oferta.igv, 2);
@@ -149,7 +149,22 @@ namespace QOA.DEMO.AccesoDatos
             lista.Add(new CompaniaBE { idCompania = 2, codigo = "PACIFICO", nombre = "Pacífico Seguros", ruc = "20332970411", color = "#0067b1", descripcion = "Asistencia nacional", activo = 1 });
             lista.Add(new CompaniaBE { idCompania = 3, codigo = "MAPFRE", nombre = "MAPFRE Perú", ruc = "20202380621", color = "#d71920", descripcion = "Red de talleres", activo = 1 });
             lista.Add(new CompaniaBE { idCompania = 4, codigo = "POSITIVA", nombre = "La Positiva", ruc = "20100210909", color = "#f59b23", descripcion = "Precio competitivo", activo = 1 });
+            lista.Add(new CompaniaBE { idCompania = 5, codigo = "ANDINA", nombre = "Seguros Andina", ruc = "20555555555", color = "#2E7D32", descripcion = "Cobertura para flotas", activo = 1 });
             return lista;
+        }
+
+        private static readonly Dictionary<int, double> FactoresTarifa = new Dictionary<int, double>
+        {
+            { 1, 1.08 }, // RIMAC
+            { 2, 1.00 }, // PACIFICO
+            { 3, 0.94 }, // MAPFRE
+            { 4, 0.88 }, // POSITIVA
+            { 5, 0.97 }, // ANDINA
+        };
+
+        private double ObtenerFactorTarifa(int idCompania)
+        {
+            return FactoresTarifa[idCompania];
         }
 
         private double CalcularBaseProducto(PolizaBE p)
@@ -177,11 +192,13 @@ namespace QOA.DEMO.AccesoDatos
                 if (compania == 1) return "Compras no reconocidas | Robo en cajero | Reposición de documentos";
                 if (compania == 2) return "Fraude por internet | Robo en cajero | Asistencia telefónica";
                 if (compania == 3) return "Compras no reconocidas | Protección de compras";
+                if (compania == 5) return "Protección de compras corporativas | Robo en cajero | Gestión de siniestros centralizada";
                 return "Robo de tarjeta | Compras no reconocidas";
             }
             if (compania == 1) return "Daños propios | Responsabilidad civil | Auto de reemplazo";
             if (compania == 2) return "Daños propios | Grúa 24 horas | Conductor de reemplazo";
             if (compania == 3) return "Red de talleres | Responsabilidad civil | Asistencia vial";
+            if (compania == 5) return "Cobertura de flota | Asistencia en carretera | Gestión de siniestros centralizada";
             return "Daños propios | Grúa | Auxilio mecánico";
         }
 

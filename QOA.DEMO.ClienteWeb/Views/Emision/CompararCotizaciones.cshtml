@@ -20,7 +20,7 @@
         <div class="panel panel-default oferta-panel @(oferta.recomendada ? "oferta-recomendada" : "")">
             @if (oferta.recomendada) { <div class="oferta-insignia"><span class="glyphicon glyphicon-star"></span> Mejor precio</div> }
             <div class="panel-heading oferta-compania" style="border-top-color:@oferta.compania.color">
-                <span class="oferta-logo" style="background:@oferta.compania.color" aria-hidden="true">@(oferta.compania.codigo == "RIMAC" ? "RS" : oferta.compania.codigo == "PACIFICO" ? "PS" : oferta.compania.codigo == "MAPFRE" ? "MP" : "LP")</span>
+                <span class="oferta-logo" style="background:@oferta.compania.color" aria-hidden="true">@(oferta.compania.codigo == "RIMAC" ? "RS" : oferta.compania.codigo == "PACIFICO" ? "PS" : oferta.compania.codigo == "MAPFRE" ? "MP" : oferta.compania.codigo == "ANDINA" ? "SA" : "LP")</span>
                 <div class="oferta-compania-datos">
                     <span class="oferta-compania-tipo">Compañía aseguradora</span>
                     <h3 class="oferta-compania-nombre">@oferta.compania.nombre</h3>
