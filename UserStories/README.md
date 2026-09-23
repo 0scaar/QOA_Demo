@@ -15,6 +15,9 @@ Este directorio documenta la línea base funcional del sistema legado creado par
 | US-007 | [Anular una póliza](US-007-anulacion-poliza.md) | Usuario emisor | Alta | Implementada |
 | US-008 | [Cotizar en múltiples compañías](US-008-cotizacion-multicompania.md) | Usuario emisor | Alta | Implementada |
 | US-009 | [Seleccionar oferta y emitir](US-009-seleccionar-oferta-y-emitir.md) | Usuario emisor | Alta | Implementada |
+| US-010 | [Elegir Auto de Reemplazo al cotizar](US-010-auto-reemplazo-cotizacion.md) | Usuario emisor | Alta | Por implementar |
+| US-011 | [Ver Auto de Reemplazo en la comparación de ofertas](US-011-auto-reemplazo-comparacion.md) | Usuario emisor | Alta | Por implementar |
+| US-012 | [Emitir póliza vehicular con Auto de Reemplazo](US-012-auto-reemplazo-emision.md) | Usuario emisor | Alta | Por implementar |
 
 ## Convenciones
 
