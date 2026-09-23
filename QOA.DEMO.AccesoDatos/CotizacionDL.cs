@@ -50,8 +50,17 @@ namespace QOA.DEMO.AccesoDatos
                         oferta.primaNeta = Math.Round(baseProducto * factor, 2);
                         oferta.igv = Math.Round(oferta.primaNeta * 0.18, 2);
                         oferta.primaTotal = Math.Round(oferta.primaNeta + oferta.igv, 2);
-                        oferta.deducible = objParametro.tipoProducto == "VEHICULAR" ? Math.Round(objParametro.valorComercial * (0.035 + orden * 0.005), 2) : 0;
-                        oferta.descripcionDeducible = objParametro.tipoProducto == "VEHICULAR" ? (4 + orden) + "% del valor del siniestro, mínimo S/ 750" : "Sin deducible";
+                        if (objParametro.tipoProducto == "VEHICULAR")
+                        {
+                            DeducibleVehicularBE deducibleVehicular = CalcularDeducibleVehicular(objParametro.valorComercial, orden);
+                            oferta.deducible = deducibleVehicular.monto;
+                            oferta.descripcionDeducible = deducibleVehicular.descripcion;
+                        }
+                        else
+                        {
+                            oferta.deducible = 0;
+                            oferta.descripcionDeducible = "Sin deducible";
+                        }
                         oferta.beneficios = ObtenerBeneficios(objParametro.tipoProducto, compania.idCompania);
                         oferta.tiempoRespuesta = (orden * 2 + 1) + " segundos";
                         cotizacion.ofertas.Add(oferta);
@@ -165,6 +174,13 @@ namespace QOA.DEMO.AccesoDatos
         private double ObtenerFactorTarifa(int idCompania)
         {
             return FactoresTarifa[idCompania];
+        }
+
+        public DeducibleVehicularBE CalcularDeducibleVehicular(double valorComercial, int orden)
+        {
+            double monto = Math.Round(valorComercial * (0.035 + orden * 0.005), 2);
+            string descripcion = (4 + orden) + "% del valor del siniestro, mínimo S/ 750";
+            return new DeducibleVehicularBE { monto = monto, descripcion = descripcion };
         }
 
         private double CalcularBaseProducto(PolizaBE p)
