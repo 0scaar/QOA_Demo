@@ -46,6 +46,8 @@ namespace QOA.DEMO.LogicaNegocio
                 cotizacion.poliza.igv = elegida.igv;
                 cotizacion.poliza.primaTotal = elegida.primaTotal;
                 cotizacion.poliza.deducible = elegida.deducible;
+                cotizacion.poliza.autoReemplazo = elegida.autoReemplazo;
+                cotizacion.poliza.costoAutoReemplazo = elegida.costoAutoReemplazo;
                 cotizacion.poliza.usuarioRegistro = usuario;
                 return new PolizaBL().registrarPoliza(cotizacion.poliza);
             }

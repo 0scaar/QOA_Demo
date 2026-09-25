@@ -10,6 +10,8 @@ namespace QOA.DEMO.Entidades
         public double primaTotal { get; set; }
         public double deducible { get; set; }
         public string descripcionDeducible { get; set; }
+        public bool autoReemplazo { get; set; }
+        public double costoAutoReemplazo { get; set; }
         public string beneficios { get; set; }
         public string tiempoRespuesta { get; set; }
         public bool seleccionada { get; set; }

@@ -31,12 +31,14 @@ namespace QOA.DEMO.LogicaNegocio
                     if (objParametro.usoVehiculo == "TAXI") objParametro.primaNeta = objParametro.primaNeta * 1.45;
                     objParametro.descripcionProducto = "Seguro Vehicular";
                     objParametro.coberturas.Add("Danos propios"); objParametro.coberturas.Add("Responsabilidad civil");
+                    if (objParametro.autoReemplazo) objParametro.coberturas.Add("Auto de Reemplazo");
                 }
                 else
                 {
                     objParametro.descripcionProducto = objParametro.tipoProducto == "TARJETA" ? "Proteccion de Tarjeta" : "Seguro Vehicular";
                     objParametro.coberturas.Add(objParametro.tipoProducto == "TARJETA" ? "Compras no reconocidas" : "Danos propios");
                     objParametro.coberturas.Add(objParametro.tipoProducto == "TARJETA" ? "Robo en cajero" : "Responsabilidad civil");
+                    if (objParametro.tipoProducto == "VEHICULAR" && objParametro.autoReemplazo) objParametro.coberturas.Add("Auto de Reemplazo");
                 }
                 if (objParametro.idOfertaCotizacion <= 0)
                 {

@@ -11,6 +11,7 @@ namespace QOA.DEMO.AccesoDatos
     public class CotizacionDL : ConexionDL, IDisposable
     {
         private bool disposed = false;
+        private const double COSTO_AUTO_REEMPLAZO = 45.00;
 
         public CotizacionBE cotizar(PolizaBE objParametro)
         {
@@ -61,7 +62,12 @@ namespace QOA.DEMO.AccesoDatos
                             oferta.deducible = 0;
                             oferta.descripcionDeducible = "Sin deducible";
                         }
-                        oferta.beneficios = ObtenerBeneficios(objParametro.tipoProducto, compania.idCompania);
+                        if (objParametro.tipoProducto == "VEHICULAR" && objParametro.autoReemplazo)
+                        {
+                            oferta.autoReemplazo = true;
+                            oferta.costoAutoReemplazo = COSTO_AUTO_REEMPLAZO;
+                        }
+                        oferta.beneficios = ObtenerBeneficios(objParametro.tipoProducto, compania.idCompania, oferta.autoReemplazo);
                         oferta.tiempoRespuesta = (orden * 2 + 1) + " segundos";
                         cotizacion.ofertas.Add(oferta);
                         orden++;
@@ -197,11 +203,12 @@ namespace QOA.DEMO.AccesoDatos
                 valor = p.valorComercial * 0.028;
                 if (p.usoVehiculo == "TAXI") valor = valor * 1.45;
                 if (p.usoVehiculo == "COMERCIAL") valor = valor * 1.20;
+                if (p.autoReemplazo) valor = valor + COSTO_AUTO_REEMPLAZO;
             }
             return valor;
         }
 
-        private string ObtenerBeneficios(string producto, int compania)
+        private string ObtenerBeneficios(string producto, int compania, bool autoReemplazo)
         {
             if (producto == "TARJETA")
             {
@@ -211,24 +218,27 @@ namespace QOA.DEMO.AccesoDatos
                 if (compania == 5) return "Protección de compras corporativas | Robo en cajero | Gestión de siniestros centralizada";
                 return "Robo de tarjeta | Compras no reconocidas";
             }
-            if (compania == 1) return "Daños propios | Responsabilidad civil | Auto de reemplazo";
-            if (compania == 2) return "Daños propios | Grúa 24 horas | Conductor de reemplazo";
-            if (compania == 3) return "Red de talleres | Responsabilidad civil | Asistencia vial";
-            if (compania == 5) return "Cobertura de flota | Asistencia en carretera | Gestión de siniestros centralizada";
-            return "Daños propios | Grúa | Auxilio mecánico";
+            string beneficios;
+            if (compania == 1) beneficios = "Daños propios | Responsabilidad civil";
+            else if (compania == 2) beneficios = "Daños propios | Grúa 24 horas | Conductor de reemplazo";
+            else if (compania == 3) beneficios = "Red de talleres | Responsabilidad civil | Asistencia vial";
+            else if (compania == 5) beneficios = "Cobertura de flota | Asistencia en carretera | Gestión de siniestros centralizada";
+            else beneficios = "Daños propios | Grúa | Auxilio mecánico";
+            if (autoReemplazo) beneficios = beneficios + " | Auto de Reemplazo";
+            return beneficios;
         }
 
         private void AgregarParametros(SqlCommand cmd, PolizaBE p)
         {
             cmd.Parameters.Add("@C_TIPO_PRODUCTO", SqlDbType.VarChar, 20).Value = p.tipoProducto ?? ""; cmd.Parameters.Add("@C_DOCUMENTO", SqlDbType.VarChar, 20).Value = p.contratante.numeroDocumento ?? ""; cmd.Parameters.Add("@C_NOMBRE", SqlDbType.VarChar, 200).Value = p.contratante.nombreCompleto ?? "";
             cmd.Parameters.Add("@D_INI_VIGENCIA", SqlDbType.Date).Value = Convert.ToDateTime(p.fecIniVigencia); cmd.Parameters.Add("@D_FIN_VIGENCIA", SqlDbType.Date).Value = Convert.ToDateTime(p.fecFinVigencia); cmd.Parameters.Add("@C_PLAN", SqlDbType.VarChar, 50).Value = p.planTarjeta ?? ""; cmd.Parameters.Add("@N_LINEA_CREDITO", SqlDbType.Decimal).Value = p.lineaCredito;
-            cmd.Parameters.Add("@C_PLACA", SqlDbType.VarChar, 10).Value = p.placa ?? ""; cmd.Parameters.Add("@C_MARCA", SqlDbType.VarChar, 50).Value = p.marca ?? ""; cmd.Parameters.Add("@C_MODELO", SqlDbType.VarChar, 50).Value = p.modelo ?? ""; cmd.Parameters.Add("@N_ANIO", SqlDbType.Int).Value = p.anioFabricacion; cmd.Parameters.Add("@N_VALOR_COMERCIAL", SqlDbType.Decimal).Value = p.valorComercial; cmd.Parameters.Add("@C_USO", SqlDbType.VarChar, 30).Value = p.usoVehiculo ?? ""; cmd.Parameters.Add("@C_USUARIO", SqlDbType.VarChar, 50).Value = p.usuarioRegistro ?? "";
+            cmd.Parameters.Add("@C_PLACA", SqlDbType.VarChar, 10).Value = p.placa ?? ""; cmd.Parameters.Add("@C_MARCA", SqlDbType.VarChar, 50).Value = p.marca ?? ""; cmd.Parameters.Add("@C_MODELO", SqlDbType.VarChar, 50).Value = p.modelo ?? ""; cmd.Parameters.Add("@N_ANIO", SqlDbType.Int).Value = p.anioFabricacion; cmd.Parameters.Add("@N_VALOR_COMERCIAL", SqlDbType.Decimal).Value = p.valorComercial; cmd.Parameters.Add("@C_USO", SqlDbType.VarChar, 30).Value = p.usoVehiculo ?? ""; cmd.Parameters.Add("@B_AUTO_REEMPLAZO", SqlDbType.Bit).Value = p.tipoProducto == "VEHICULAR" && p.autoReemplazo; cmd.Parameters.Add("@C_USUARIO", SqlDbType.VarChar, 50).Value = p.usuarioRegistro ?? "";
         }
 
         private OfertaCotizacionBE MapearOferta(SqlDataReader dr)
         {
             OfertaCotizacionBE o = new OfertaCotizacionBE();
-            o.idOferta = Convert.ToInt64(dr["N_ID_OFERTA"]); o.idCotizacion = Convert.ToInt64(dr["N_ID_COTIZACION"]); o.compania.idCompania = Convert.ToInt32(dr["N_ID_COMPANIA"]); o.compania.codigo = Convert.ToString(dr["C_CODIGO"]); o.compania.nombre = Convert.ToString(dr["C_NOMBRE_COMPANIA"]); o.compania.color = Convert.ToString(dr["C_COLOR"]); o.compania.descripcion = Convert.ToString(dr["C_DESCRIPCION"]); o.primaNeta = Convert.ToDouble(dr["N_PRIMA_NETA"]); o.igv = Convert.ToDouble(dr["N_IGV"]); o.primaTotal = Convert.ToDouble(dr["N_PRIMA_TOTAL"]); o.deducible = Convert.ToDouble(dr["N_DEDUCIBLE"]); o.descripcionDeducible = Convert.ToString(dr["C_DES_DEDUCIBLE"]); o.beneficios = Convert.ToString(dr["C_BENEFICIOS"]); o.tiempoRespuesta = Convert.ToString(dr["C_TIEMPO_RESPUESTA"]); o.recomendada = Convert.ToInt32(dr["B_RECOMENDADA"]) == 1;
+            o.idOferta = Convert.ToInt64(dr["N_ID_OFERTA"]); o.idCotizacion = Convert.ToInt64(dr["N_ID_COTIZACION"]); o.compania.idCompania = Convert.ToInt32(dr["N_ID_COMPANIA"]); o.compania.codigo = Convert.ToString(dr["C_CODIGO"]); o.compania.nombre = Convert.ToString(dr["C_NOMBRE_COMPANIA"]); o.compania.color = Convert.ToString(dr["C_COLOR"]); o.compania.descripcion = Convert.ToString(dr["C_DESCRIPCION"]); o.primaNeta = Convert.ToDouble(dr["N_PRIMA_NETA"]); o.igv = Convert.ToDouble(dr["N_IGV"]); o.primaTotal = Convert.ToDouble(dr["N_PRIMA_TOTAL"]); o.deducible = Convert.ToDouble(dr["N_DEDUCIBLE"]); o.descripcionDeducible = Convert.ToString(dr["C_DES_DEDUCIBLE"]); o.autoReemplazo = Convert.ToInt32(dr["B_AUTO_REEMPLAZO"]) == 1; o.costoAutoReemplazo = dr["N_COSTO_AUTO_REEMPLAZO"] == DBNull.Value ? 0 : Convert.ToDouble(dr["N_COSTO_AUTO_REEMPLAZO"]); o.beneficios = Convert.ToString(dr["C_BENEFICIOS"]); o.tiempoRespuesta = Convert.ToString(dr["C_TIEMPO_RESPUESTA"]); o.recomendada = Convert.ToInt32(dr["B_RECOMENDADA"]) == 1;
             return o;
         }
 

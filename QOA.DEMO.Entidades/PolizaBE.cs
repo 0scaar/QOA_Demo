@@ -56,6 +56,8 @@ namespace QOA.DEMO.Entidades
         public string numeroSerie { get; set; }
         public Double valorComercial { get; set; }
         public string usoVehiculo { get; set; }
+        public bool autoReemplazo { get; set; }
+        public Double costoAutoReemplazo { get; set; }
 
         // Campos de pantalla y de acceso a datos dentro de la misma entidad.
         public string filtroGeneral { get; set; }
