@@ -28,6 +28,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CotizacionDLDeducibleVehicularTests.cs" />
+    <Compile Include="CotizacionDLAutoReemplazoTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
