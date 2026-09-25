@@ -67,7 +67,7 @@ namespace QOA.DEMO.AccesoDatos
                             oferta.autoReemplazo = true;
                             oferta.costoAutoReemplazo = COSTO_AUTO_REEMPLAZO;
                         }
-                        oferta.beneficios = ObtenerBeneficios(objParametro.tipoProducto, compania.idCompania, objParametro.autoReemplazo);
+                        oferta.beneficios = ObtenerBeneficios(objParametro.tipoProducto, compania.idCompania, oferta.autoReemplazo);
                         oferta.tiempoRespuesta = (orden * 2 + 1) + " segundos";
                         cotizacion.ofertas.Add(oferta);
                         orden++;
@@ -227,7 +227,7 @@ namespace QOA.DEMO.AccesoDatos
                 else if (compania == 5) beneficios = "Cobertura de flota | Asistencia en carretera | Gestión de siniestros centralizada";
                 else beneficios = "Daños propios | Grúa | Auxilio mecánico";
             }
-            if (autoReemplazo) beneficios = beneficios + " | Auto de Reemplazo";
+            if (producto == "VEHICULAR" && autoReemplazo) beneficios = beneficios + " | Auto de Reemplazo";
             return beneficios;
         }
 
