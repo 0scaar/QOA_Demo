@@ -67,7 +67,7 @@ namespace QOA.DEMO.AccesoDatos
                             oferta.autoReemplazo = true;
                             oferta.costoAutoReemplazo = COSTO_AUTO_REEMPLAZO;
                         }
-                        oferta.beneficios = ObtenerBeneficios(objParametro.tipoProducto, compania.idCompania, oferta.autoReemplazo);
+                        oferta.beneficios = ObtenerBeneficios(objParametro.tipoProducto, compania.idCompania, objParametro.autoReemplazo);
                         oferta.tiempoRespuesta = (orden * 2 + 1) + " segundos";
                         cotizacion.ofertas.Add(oferta);
                         orden++;
@@ -210,20 +210,23 @@ namespace QOA.DEMO.AccesoDatos
 
         private string ObtenerBeneficios(string producto, int compania, bool autoReemplazo)
         {
+            string beneficios;
             if (producto == "TARJETA")
             {
-                if (compania == 1) return "Compras no reconocidas | Robo en cajero | Reposición de documentos";
-                if (compania == 2) return "Fraude por internet | Robo en cajero | Asistencia telefónica";
-                if (compania == 3) return "Compras no reconocidas | Protección de compras";
-                if (compania == 5) return "Protección de compras corporativas | Robo en cajero | Gestión de siniestros centralizada";
-                return "Robo de tarjeta | Compras no reconocidas";
+                if (compania == 1) beneficios = "Compras no reconocidas | Robo en cajero | Reposición de documentos";
+                else if (compania == 2) beneficios = "Fraude por internet | Robo en cajero | Asistencia telefónica";
+                else if (compania == 3) beneficios = "Compras no reconocidas | Protección de compras";
+                else if (compania == 5) beneficios = "Protección de compras corporativas | Robo en cajero | Gestión de siniestros centralizada";
+                else beneficios = "Robo de tarjeta | Compras no reconocidas";
             }
-            string beneficios;
-            if (compania == 1) beneficios = "Daños propios | Responsabilidad civil";
-            else if (compania == 2) beneficios = "Daños propios | Grúa 24 horas | Conductor de reemplazo";
-            else if (compania == 3) beneficios = "Red de talleres | Responsabilidad civil | Asistencia vial";
-            else if (compania == 5) beneficios = "Cobertura de flota | Asistencia en carretera | Gestión de siniestros centralizada";
-            else beneficios = "Daños propios | Grúa | Auxilio mecánico";
+            else
+            {
+                if (compania == 1) beneficios = "Daños propios | Responsabilidad civil";
+                else if (compania == 2) beneficios = "Daños propios | Grúa 24 horas | Conductor de reemplazo";
+                else if (compania == 3) beneficios = "Red de talleres | Responsabilidad civil | Asistencia vial";
+                else if (compania == 5) beneficios = "Cobertura de flota | Asistencia en carretera | Gestión de siniestros centralizada";
+                else beneficios = "Daños propios | Grúa | Auxilio mecánico";
+            }
             if (autoReemplazo) beneficios = beneficios + " | Auto de Reemplazo";
             return beneficios;
         }
